@@ -29,7 +29,7 @@ class UserResponse(UserBase):
 class Token(BaseModel):
     access_token: str
     token_type: str = "bearer"
-    expires_in: int = 3600
+    # expires_in: int = 3600
 
 
 class TokenData(BaseModel):
