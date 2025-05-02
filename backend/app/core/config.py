@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     DB_NAME: str = "takosync"
     DB_USER: str = "user"
     DB_PASSWORD: str = "password"
-    DATABASE_URL: str = f"postgresql://{DB_USER}:{
+    DATABASE_URL: str = f"postgresql+asyncpg://{DB_USER}:{
         DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
     SECRET_KEY: str = secrets.token_urlsafe(32)

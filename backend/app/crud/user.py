@@ -1,9 +1,9 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy.ext import IntegrityError
+from sqlalchemy.exc import IntegrityError
 
 from app import models, schemas
-from app.core.security import get_password_hash, verify_password
+from app.core.security import hash_password, verify_password
 
 
 async def create_user(db: AsyncSession, user: schemas.UserCreate) -> models.User:
@@ -14,7 +14,7 @@ async def create_user(db: AsyncSession, user: schemas.UserCreate) -> models.User
         username=user.username,
         email=user.email,
         # full_name=user.full_name,
-        hashed_password=get_password_hash(user.password),
+        hashed_password=hash_password(user.password),
     )
     db.add(db_user)
     try:

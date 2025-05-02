@@ -9,7 +9,7 @@ from app.core.config import settings
 from app.core import security
 from app import crud
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_PREFIX}/login")
 
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
