@@ -9,8 +9,8 @@ class Settings(BaseSettings):
     DB_HOST: str = "localhost"
     DB_PORT: int = 5432
     DB_NAME: str = "takosync"
-    DB_USER: str = "user"
-    DB_PASSWORD: str = "password"
+    DB_USER: str = "postgres"
+    DB_PASSWORD: str = "postgres"
     DATABASE_URL: str = f"postgresql+asyncpg://{DB_USER}:{
         DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 

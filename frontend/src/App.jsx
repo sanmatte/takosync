@@ -1,28 +1,33 @@
 // src/App.jsx
 import React from 'react';
-import { Routes, Route } from 'react-router-dom'; // Link is now in Header/Footer
-import Layout from './components/Layout'; // Import Layout
-import HomePage from './pages/HomePage';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import RootHandler from './components/RootHandler';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import GetStartedPage from './pages/GetStartedPage'; // <-- Import the new page
+// HomePage is handled by RootHandler
+// const HomePage = () => <div>Original Home Page Content</div>; // Or import if needed elsewhere
+const DashboardPage = () => <div className="text-xl font-semibold">App Dashboard (Protected Area)</div>;
+const DocsPage = () => <div className="text-xl font-semibold">Documentation Page</div>;
+
 
 function App() {
   return (
-    // Routes are now defined within the Layout structure
     <Routes>
-      {/* Route that renders the Layout component */}
-      <Route path="/" element={<Layout />}>
-        {/* Child routes rendered inside Layout's <Outlet /> */}
-        {/* Index route for the default content at '/' */}
-        <Route index element={<HomePage />} />
+      <Route element={<Layout />}>
+        <Route index element={<RootHandler />} /> {/* RootHandler decides / content */}
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-
-        {/* Define other top-level pages here later (e.g., /dashboard, /notes) */}
-
-        {/* Catch-all 404 route for paths not matched within the Layout */}
+        <Route path="docs" element={<DocsPage />} />
+        {/* --- Add new route for the Get Started page --- */}
+        <Route path="get-started" element={<GetStartedPage />} />
+        {/* -------------------------------------------- */}
         <Route path="*" element={<div className="text-red-500 font-bold text-center mt-10">404 - Page Not Found</div>} />
       </Route>
+
+      {/* Temporary Dashboard Route, etc. */}
+      <Route path="/dashboard" element={<Layout><DashboardPage /></Layout>} />
     </Routes>
   );
 }
