@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy import select
 from app.api.deps import get_db
 from app.models.user import User
 from app.schemas.user import UserCreate, UserUpdate, UserResponse
@@ -13,12 +14,12 @@ router = APIRouter(
 
 
 @router.post("/register", response_model=UserResponse)
-def create_user(user: UserCreate, db: Session = Depends(get_db)):
-    db_user = db.query(User).filter(User.email == user.email).first()
-    if db_user:
+async def create_user(user: UserCreate, db: Session = Depends(get_db)):
+    is_email_taken = await db.execute(select(User).filter(User.email == user.email))
+    is_username_taken = await db.query(User).filter(User.username == user.username).first()
+    if is_email_taken:
         raise HTTPException(status_code=400, detail="Email already registered")
-    db_user = db.query(User).filter(User.username == user.username).first()
-    if db_user:
+    if is_username_taken:
         raise HTTPException(
             status_code=400, detail="Username already registered")
     if len(user.password) < 12:
