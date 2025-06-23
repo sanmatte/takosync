@@ -17,6 +17,7 @@ from app.db.session import async_engine
 
 # --- Import Base and ALL Models ---
 from app.db.base import Base
+from app.models import *
 
 async def create_db_and_tables():
     logger.info("Attempting connect and run sync create_all...")

@@ -14,7 +14,7 @@ async def create_user(db: AsyncSession, user: schemas.UserCreate) -> models.User
         username=user.username,
         email=user.email,
         # full_name=user.full_name,
-        hashed_password=hash_password(user.password),
+        password_hash=hash_password(user.password),
     )
     db.add(db_user)
     try:
@@ -70,7 +70,7 @@ async def authenticate_user(db: AsyncSession, username: str, password: str) -> m
     user = await get_user_by_username(db, username)
     if not user:
         return None
-    if not verify_password(password, user.hashed_password):
+    if not verify_password(password, user.password_hash):
         return None
 
     return user

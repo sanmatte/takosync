@@ -3,89 +3,113 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function RegisterPage() {
+  // Placeholder state management
+  const [fullName, setFullName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [confirmPassword, setConfirmPassword] = React.useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // TODO: Add actual registration logic here
+    // TODO: Add password confirmation check
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+    console.log('Register attempt with:', { fullName, email, password });
+    alert('Registration logic not implemented yet!');
+  };
+
   return (
-    // Centered form container, matching HomePage feature card style
-    <div className="max-w-md mx-auto mt-8 md:mt-12"> {/* Added responsive margin */}
-       <div className="bg-white p-8 rounded-lg shadow-md border border-gray-200"> {/* Consistent card style */}
-        {/* Heading using consistent color and style */}
-        <h1 className="text-3xl font-bold text-cyan-800 mb-6 text-center">
-          Create Takosync Account
-        </h1>
-        <form> {/* Add onSubmit handler later */}
-          <div className="mb-4">
-            <label htmlFor="fullname" className="block text-gray-700 text-sm font-bold mb-2">
-              Full Name <span className="text-gray-500 font-normal">(Optional)</span>
-            </label>
-            <input
-              type="text"
-              id="fullname"
-              // Input styling consistent with modern forms + focus ring matching theme
-              className="shadow-sm appearance-none border border-gray-300 rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-              placeholder="Your Name"
-              // Add value and onChange later
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email-register" className="block text-gray-700 text-sm font-bold mb-2">
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email-register"
-              // Input styling consistent with modern forms + focus ring matching theme
-              className="shadow-sm appearance-none border border-gray-300 rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-              placeholder="you@example.com"
-              required
-              // Add value and onChange later
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="password-register" className="block text-gray-700 text-sm font-bold mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password-register"
-              // Input styling consistent with modern forms + focus ring matching theme
-              className="shadow-sm appearance-none border border-gray-300 rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-              placeholder="Minimum 8 characters"
-              required
-              // Add value and onChange later
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="confirm-password" className="block text-gray-700 text-sm font-bold mb-2">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirm-password"
-              // Input styling consistent with modern forms + focus ring matching theme
-              className="shadow-sm appearance-none border border-gray-300 rounded-md w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-              placeholder="Retype password"
-              required
-              // Add value and onChange later
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            {/* Button style matching the Register button in Header */}
-            <button
-              type="submit"
-              className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline transition duration-300"
-            >
-              Create Account
-            </button>
-          </div>
-           {/* Link style matching HomePage footer prompt */}
-           <p className="text-center text-gray-600 text-sm mt-6">
-            Already have an account?{' '}
-            <Link to="/login" className="font-bold text-cyan-700 hover:underline">
-              Log In
-            </Link>
-          </p>
-        </form>
-      </div>
-    </div>
+    // Centered container, consistent top margin
+    <div className="max-w-md mx-auto mt-12 md:mt-16 px-4"> {/* Adjusted top margin */}
+
+      {/* Heading - Centered, Takosync color */}
+      <h1 className="text-3xl md:text-3xl font-bold text-cyan-800 mb-8 text-center">
+        Create your Account
+      </h1>
+
+      {/* Form directly on page background */}
+      <form onSubmit={handleSubmit}>
+
+        {/* Input Group - Attached inputs */}
+        {/* Optional Full Name Input - Rounded top */}
+        <div className="relative">
+          <input
+            type="text"
+            id="fullname"
+            name="fullname"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            // Style: Larger padding, rounded top, border (except bottom), specific focus
+            className="bg-white relative block w-full appearance-none rounded-t-md border border-gray-300 border-b-0 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
+            placeholder="Full Name (Optional)"
+            autoComplete="name"
+          />
+          {/* Email Input - Attaches to Full Name, no rounding */}
+          <input
+            type="email"
+            id="email-register"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            // Style: Attaches, no rounding, border (except bottom)
+            className="bg-white relative -mt-px block w-full appearance-none border border-gray-300 border-b-0 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
+            placeholder="Email Address"
+            required
+            autoComplete="email"
+          />
+           {/* Password Input - Attaches to Email, no rounding */}
+           <input
+            type="password"
+            id="password-register"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+             // Style: Attaches, no rounding, border (except bottom)
+            className="bg-white relative -mt-px block w-full appearance-none border border-gray-300 border-b-0 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
+            placeholder="Password (min. 12 characters)" // Add length hint
+            required
+            autoComplete="new-password"
+          />
+          {/* Confirm Password Input - Rounded bottom, attaches to Password */}
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            // Style: Attaches, rounded bottom, border
+            className="bg-white relative -mt-px block w-full appearance-none rounded-b-md border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
+            placeholder="Confirm Password"
+            required
+            autoComplete="new-password"
+          />
+        </div>
+
+        {/* Spacing before button */}
+        <div className="mt-8 mb-6"> {/* Adjusted margins */}
+          {/* Button - Consistent style */}
+          <button
+            type="submit"
+            className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2.5 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 shadow-md hover:shadow-lg transition duration-300"
+          >
+            Create Account
+          </button>
+        </div>
+
+        {/* Login Link - Centered */}
+        <p className="text-center text-gray-600 text-sm">
+          Already have an account?{' '}
+          <Link to="/login" className="font-bold text-cyan-700 hover:underline">
+            Log In
+          </Link>
+        </p>
+      </form>
+
+    </div> // End of max-width container
   );
 }
 export default RegisterPage;
+
